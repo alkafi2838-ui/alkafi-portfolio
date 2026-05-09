@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AL KAFI — A Young Dreamer From Bangladesh Building A Luxury Future. 15-year-old entrepreneur, visionary, and dreamer from Sirajdikhan, Munshiganj, Dhaka.">
+<meta name="keywords" content="AL KAFI, Bangladesh entrepreneur, young dreamer, luxury lifestyle, Sirajdikhan">
+<meta name="author" content="AL KAFI">
+<title>AL KAFI — Young Visionary | Bangladesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --gold-dark: #8b6914;
+    --black: #050505;
+    --black-2: #0a0a0a;
+    --black-3: #111111;
+    --white: #f5f0e8;
+    --glass: rgba(201,168,76,0.07);
+    --glass-border: rgba(201,168,76,0.25);
+    --neon-gold: rgba(201,168,76,0.6);
+    --font-display: 'Cinzel Decorative', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --font-ui: 'Rajdhani', sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ===== CUSTOM CURSOR ===== */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* ===== LOADING SCREEN ===== */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--black);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s;
+  }
+  #loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader-logo {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 5rem);
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    animation: loaderPulse 1.5s ease-in-out infinite;
+    text-shadow: 0 0 40px rgba(201,168,76,0.8), 0 0 80px rgba(201,168,76,0.4);
+  }
+  .loader-bar-wrap {
+    width: 300px; height: 2px;
+    background: rgba(201,168,76,0.15);
+    margin-top: 2rem; border-radius: 2px; overflow: hidden;
+  }
+  .loader-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    border-radius: 2px;
+    animation: loadBar 2.5s ease forwards;
+    box-shadow: 0 0 20px var(--gold);
+  }
+  .loader-text {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: rgba(201,168,76,0.6);
+    margin-top: 1rem;
+    text-transform: uppercase;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+  @keyframes loaderPulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+  @keyframes loadBar { 0% { width:0% } 100% { width:100% } }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ===== CANVAS PARTICLES ===== */
+  #particles-canvas {
+    position: fixed; inset: 0;
+    z-index: 0; pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.2rem 4vw;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(5,5,5,0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(5,5,5,0.92);
+    box-shadow: 0 4px 40px rgba(201,168,76,0.08);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-burger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none;
+  }
+  .nav-burger span { width: 24px; height: 1px; background: var(--gold); transition: all 0.3s; }
+
+  /* ===== SECTIONS BASE ===== */
+  section { position: relative; z-index: 1; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 10rem 4vw 6rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-crown {
+    font-size: 2.5rem; color: var(--gold);
+    animation: float 4s ease-in-out infinite;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.8));
+  }
+  .hero-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    letter-spacing: 0.6em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.5s forwards;
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 1;
+    color: transparent;
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 40%, var(--gold) 60%, var(--gold-dark) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.8s forwards;
+    text-shadow: none;
+    position: relative;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.3));
+  }
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: rgba(245,240,232,0.75);
+    margin-top: 1.5rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.1s forwards;
+  }
+  .hero-subtitle {
+    font-family: var(--font-ui);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.4s forwards;
+    min-height: 1.5em;
+  }
+  .hero-divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2.5rem auto;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.6s forwards;
+  }
+  .hero-stats {
+    display: flex; gap: 4rem; justify-content: center;
+    opacity: 0; animation: fadeIn 0.8s ease 1.8s forwards;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5);
+  }
+  .hero-stat-label {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-top: 0.3rem;
+  }
+  .hero-cta-wrap {
+    display: flex; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeIn 0.8s ease 2s forwards;
+  }
+  .btn-gold {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    color: var(--black);
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition: all 0.3s;
+    font-weight: 700;
+  }
+  .btn-gold:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+    box-shadow: 0 0 30px rgba(201,168,76,0.5);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.2);
+    transform: translateY(-2px);
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeIn 1s ease 2.5s forwards;
+  }
+  .scroll-indicator span {
+    font-family: var(--font-ui); font-size: 0.6rem;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100% { opacity:1; transform:scaleY(1); } 50% { opacity:0.3; transform:scaleY(0.6); } }
+  @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+
+  /* ===== SECTION TITLES ===== */
+  .section-wrap { padding: 8rem 4vw; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: ''; flex: 0 0 40px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .section-title .gold { color: var(--gold); }
+  .section-sub {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(245,240,232,0.45);
+    margin-bottom: 4rem;
+  }
+  .gold-rule {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 1.2rem 0 3rem;
+    box-shadow: 0 0 12px rgba(201,168,76,0.4);
+  }
+
+  /* ===== ABOUT ===== */
+  #about { background: linear-gradient(to bottom, var(--black), #080808); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .about-ring-outer {
+    width: clamp(260px, 35vw, 380px);
+    height: clamp(260px, 35vw, 380px);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: spinSlow 20s linear infinite;
+    position: relative;
+  }
+  .about-ring-inner {
+    width: 85%; height: 85%;
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: spinSlow 12s linear infinite reverse;
+    position: relative;
+  }
+  .about-avatar {
+    width: 75%; height: 75%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(201,168,76,0.2), rgba(5,5,5,0.9));
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid rgba(201,168,76,0.3);
+    box-shadow: 0 0 60px rgba(201,168,76,0.15), inset 0 0 40px rgba(201,168,76,0.05);
+    flex-direction: column; gap: 0.5rem;
+  }
+  .about-avatar-icon { font-size: 4rem; }
+  .about-avatar-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5);
+  }
+  .about-ring-dot {
+    position: absolute; width: 10px; height: 10px;
+    background: var(--gold); border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(201,168,76,0.5);
+  }
+  .about-ring-dot:nth-child(1) { top: -5px; left: 50%; transform: translateX(-50%); }
+  .about-ring-dot:nth-child(2) { bottom: -5px; right: 20%; }
+  .about-ring-dot:nth-child(3) { left: -5px; top: 40%; }
+  @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .about-text p {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    line-height: 1.9;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 1.5rem;
+  }
+  .about-text p strong { color: var(--gold); font-weight: 600; }
+  .about-info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+  }
+  .about-info-item {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 1.2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  .about-info-item:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-2px);
+  }
+  .about-info-label {
+    font-family: var(--font-ui);
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    margin-bottom: 0.3rem;
+  }
+  .about-info-val {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== HOBBIES ===== */
+  #hobbies {
+    background: linear-gradient(to bottom, #080808, #0a0a0a);
+  }
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .hobby-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: default;
+  }
+  .hobby-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .hobby-card::after {
+    content: ''; position: absolute;
+    bottom: -100%; left: 0; right: 0; top: 0;
+    background: linear-gradient(to top, rgba(201,168,76,0.06), transparent);
+    transition: bottom 0.4s ease;
+  }
+  .hobby-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(201,168,76,0.45);
+    box-shadow: 0 20px 60px rgba(201,168,76,0.1), 0 0 0 1px rgba(201,168,76,0.15);
+  }
+  .hobby-card:hover::before { opacity: 1; }
+  .hobby-card:hover::after { bottom: 0; }
+  .hobby-icon {
+    font-size: 2.8rem; margin-bottom: 1.2rem;
+    display: block;
+    transition: transform 0.3s;
+    position: relative; z-index: 1;
+  }
+  .hobby-card:hover .hobby-icon { transform: scale(1.15) rotate(5deg); }
+  .hobby-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+    position: relative; z-index: 1;
+  }
+  .hobby-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+    position: relative; z-index: 1;
+  }
+  .hobby-num {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: rgba(201,168,76,0.06);
+    line-height: 1;
+    font-weight: 900;
+    transition: color 0.3s;
+  }
+  .hobby-card:hover .hobby-num { color: rgba(201,168,76,0.12); }
+
+  /* ===== DREAMS ===== */
+  #dreams {
+    background: linear-gradient(to bottom, #0a0a0a, #050505);
+    overflow: hidden;
+  }
+  .dreams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .dream-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: default;
+  }
+  .dream-card:hover {
+    transform: translateY(-10px) scale(1.01);
+    border-color: rgba(201,168,76,0.5);
+    box-shadow: 0 30px 80px rgba(201,168,76,0.12);
+  }
+  .dream-card-bg {
+    position: absolute; inset: 0;
+    opacity: 0; transition: opacity 0.4s;
+    background: radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.08), transparent 60%);
+  }
+  .dream-card:hover .dream-card-bg { opacity: 1; }
+  .dream-emoji { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; }
+  .dream-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+  }
+  .dream-desc {
+    font-size: 1rem; line-height: 1.75;
+    color: rgba(245,240,232,0.6);
+  }
+  .dream-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: var(--font-ui);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* ===== GOALS ===== */
+  #goals {
+    background: linear-gradient(to bottom, #050505, #080808);
+  }
+  .goals-timeline {
+    position: relative;
+    padding-left: 3rem;
+    max-width: 700px;
+  }
+  .goals-timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .goal-item {
+    position: relative; margin-bottom: 3rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+  .goal-item.visible { opacity: 1; transform: translateX(0); }
+  .goal-dot {
+    position: absolute; left: -3.45rem; top: 0.4rem;
+    width: 12px; height: 12px;
+    background: var(--gold); border-radius: 50%;
+    box-shadow: 0 0 12px rgba(201,168,76,0.6);
+  }
+  .goal-year {
+    font-family: var(--font-ui);
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .goal-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .goal-text { font-size: 1rem; line-height: 1.75; color: rgba(245,240,232,0.6); }
+
+  /* ===== LUXURY VISION ===== */
+  #vision {
+    background: linear-gradient(135deg, #050505, #0d0d0d);
+    overflow: hidden;
+  }
+  .vision-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    border: 1px solid rgba(201,168,76,0.15);
+    overflow: hidden;
+    position: relative;
+  }
+  .vision-card {
+    padding: 3rem 2.5rem;
+    background: #070707;
+    position: relative; overflow: hidden;
+    transition: all 0.4s;
+    text-align: center;
+  }
+  .vision-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .vision-card:hover { background: #0a0a0a; }
+  .vision-card:hover::after { opacity: 1; }
+  .vision-card + .vision-card { border-left: 1px solid rgba(201,168,76,0.1); }
+  .vision-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+  .vision-title {
+    font-family: var(--font-display);
+    font-size: 1rem; color: var(--gold);
+    letter-spacing: 0.1em; margin-bottom: 1rem;
+  }
+  .vision-text { font-size: 0.95rem; line-height: 1.8; color: rgba(245,240,232,0.55); }
+
+  /* ===== QUOTE ===== */
+  #quote {
+    background: var(--black);
+    text-align: center;
+    padding: 10rem 4vw;
+    position: relative; overflow: hidden;
+  }
+  .quote-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201,168,76,0.05), transparent);
+    pointer-events: none;
+  }
+  .quote-mark {
+    font-family: var(--font-display);
+    font-size: 12rem;
+    color: rgba(201,168,76,0.06);
+    position: absolute; top: 2rem; left: 5%;
+    line-height: 1;
+    user-select: none;
+  }
+  .quote-text {
+    font-family: var(--font-body);
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-style: italic;
+    color: var(--white);
+    max-width: 900px; margin: 0 auto;
+    line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+  .quote-text .gold { color: var(--gold); }
+  .quote-author {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    margin-top: 2.5rem;
+    position: relative; z-index: 1;
+  }
+  .quote-author::before {
+    content: '—— ';
+    color: var(--gold);
+  }
+
+  /* ===== CONTACT ===== */
+  #contact {
+    background: linear-gradient(to bottom, #080808, var(--black));
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start;
+  }
+  .contact-intro { font-size: 1.1rem; line-height: 1.9; color: rgba(245,240,232,0.6); margin-bottom: 2.5rem; }
+  .social-links { display: flex; flex-direction: column; gap: 1rem; }
+  .social-link {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1rem 1.5rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    text-decoration: none;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .social-link:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.4);
+    transform: translateX(8px);
+    box-shadow: 0 0 20px rgba(201,168,76,0.08);
+  }
+  .social-icon { font-size: 1.4rem; }
+  .social-name {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .social-handle { font-size: 0.85rem; color: rgba(201,168,76,0.7); margin-left: auto; }
+  .contact-form-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 3rem;
+    backdrop-filter: blur(20px);
+  }
+  .contact-form-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem; color: var(--gold);
+    letter-spacing: 0.1em; margin-bottom: 2rem;
+  }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-label {
+    font-family: var(--font-ui);
+    font-size: 0.65rem; letter-spacing: 0.35em;
+    text-transform: uppercase; color: rgba(201,168,76,0.7);
+    display: block; margin-bottom: 0.6rem;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.9rem 1.2rem;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: rgba(201,168,76,0.6);
+    background: rgba(201,168,76,0.07);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.06);
+  }
+  .form-textarea { min-height: 120px; }
+  .form-btn {
+    width: 100%; padding: 1.1rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    color: var(--black); border: none; cursor: pointer;
+    font-family: var(--font-ui); font-size: 0.85rem;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    font-weight: 700; transition: all 0.3s; margin-top: 0.5rem;
+  }
+  .form-btn:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+    box-shadow: 0 0 30px rgba(201,168,76,0.4);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 4rem 4vw 3rem;
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2rem; color: var(--gold);
+    letter-spacing: 0.4em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    margin-bottom: 1rem;
+  }
+  .footer-tagline {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(245,240,232,0.35);
+    margin-bottom: 2rem;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; justify-content: center;
+    list-style: none; flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .footer-links a {
+    font-family: var(--font-ui); font-size: 0.7rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(245,240,232,0.3); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy {
+    font-family: var(--font-ui); font-size: 0.7rem;
+    letter-spacing: 0.2em; color: rgba(245,240,232,0.2);
+  }
+  .footer-copy span { color: var(--gold); }
+
+  /* ===== AMBIENT GLOW SECTIONS ===== */
+  .ambient-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    position: relative; z-index: 1;
+  }
+
+  /* ===== REVEAL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(5,5,5,0.98);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2.5rem;
+    backdrop-filter: blur(20px);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--white); text-decoration: none;
+    letter-spacing: 0.2em;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.5rem; color: var(--gold);
+  }
+
+  /* ===== MUSIC TOGGLE ===== */
+  .music-btn {
+    position: fixed; bottom: 2rem; right: 2rem;
+    z-index: 500;
+    width: 50px; height: 50px;
+    background: rgba(5,5,5,0.8);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .music-btn:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.1);
+  }
+  .music-btn.playing { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.4); animation: musicPulse 1.5s ease-in-out infinite; }
+  @keyframes musicPulse { 0%,100% { box-shadow: 0 0 20px rgba(201,168,76,0.4); } 50% { box-shadow: 0 0 40px rgba(201,168,76,0.7); } }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .vision-cards { grid-template-columns: 1fr; }
+    .vision-card + .vision-card { border-left: none; border-top: 1px solid rgba(201,168,76,0.1); }
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    .hero-stats { gap: 2rem; }
+  }
+  @media (max-width: 600px) {
+    .about-info-grid { grid-template-columns: 1fr; }
+    .contact-form-card { padding: 2rem; }
+    .section-wrap { padding: 5rem 5vw; }
+    .dreams-grid { grid-template-columns: 1fr; }
+    .hobbies-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">AK</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <p class="loader-text">Entering the Luxury World of AL KAFI</p>
+</div>
+
+<!-- PARTICLES CANVAS -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#hobbies" onclick="closeMobile()">Hobbies</a>
+  <a href="#dreams" onclick="closeMobile()">Dreams</a>
+  <a href="#goals" onclick="closeMobile()">Goals</a>
+  <a href="#vision" onclick="closeMobile()">Vision</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- MUSIC BUTTON -->
+<button class="music-btn" id="musicBtn" title="Toggle ambient music" onclick="toggleMusic()">🎵</button>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">AL KAFI</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#dreams">Dreams</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" onclick="openMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-crown">♔</div>
+  <p class="hero-eyebrow">Bangladesh · Born to Reign · Class of Dreaming</p>
+  <h1 class="hero-name">AL KAFI</h1>
+  <p class="hero-tagline">A Young Dreamer From Bangladesh Building A Luxury Future</p>
+  <div class="hero-subtitle" id="typingText"></div>
+  <div class="hero-divider"></div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">15</div>
+      <div class="hero-stat-label">Years Young</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">∞</div>
+      <div class="hero-stat-label">Dreams Ahead</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">01</div>
+      <div class="hero-stat-label">Bangladesh</div>
+    </div>
+  </div>
+  <div class="hero-cta-wrap">
+    <a href="#about" class="btn-gold">Discover My Story</a>
+    <a href="#dreams" class="btn-outline">See My Dreams</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-ring-outer">
+          <div class="about-ring-dot"></div>
+          <div class="about-ring-dot"></div>
+          <div class="about-ring-dot"></div>
+          <div class="about-ring-inner">
+            <div class="about-avatar">
+              <span class="about-avatar-icon">👑</span>
+              <span class="about-avatar-name">AL KAFI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-label reveal">Who I Am</p>
+        <h2 class="section-title reveal reveal-delay-1">The <span class="gold">Young</span><br>Visionary</h2>
+        <div class="gold-rule reveal reveal-delay-2"></div>
+        <p class="reveal reveal-delay-2">In the quiet streets of <strong>Sirajdikhan, Munshiganj</strong>, beneath the golden skies of Bangladesh, a young mind dares to dream beyond borders. I am <strong>AL KAFI</strong> — just 15 years old, yet carrying the ambitions of a thousand lifetimes.</p>
+        <p class="reveal reveal-delay-3">While my peers chase ordinary paths, I chase <strong>extraordinary visions</strong>. Every morning I wake up with one purpose: to build, to grow, to inspire. Business is not just a career for me — it is my heartbeat, my language, my art.</p>
+        <p class="reveal reveal-delay-4">I believe that age is never a barrier to greatness. From the depths of Bangladesh, I am writing a story the world will one day read. A story of <strong>courage, ambition, and gold-paved dreams</strong>.</p>
+        <div class="about-info-grid">
+          <div class="about-info-item reveal reveal-delay-2">
+            <div class="about-info-label">Country</div>
+            <div class="about-info-val">🇧🇩 Bangladesh</div>
+          </div>
+          <div class="about-info-item reveal reveal-delay-3">
+            <div class="about-info-label">Age</div>
+            <div class="about-info-val">15 Years Old</div>
+          </div>
+          <div class="about-info-item reveal reveal-delay-4">
+            <div class="about-info-label">Education</div>
+            <div class="about-info-val">Class 10 Student</div>
+          </div>
+          <div class="about-info-item reveal reveal-delay-5">
+            <div class="about-info-label">Location</div>
+            <div class="about-info-val">Sirajdikhan, Dhaka</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== HOBBIES ===== -->
+<section id="hobbies">
+  <div class="section-wrap">
+    <p class="section-label reveal">What I Love</p>
+    <h2 class="section-title reveal reveal-delay-1">My <span class="gold">Passions</span> &<br>Pursuits</h2>
+    <p class="section-sub reveal reveal-delay-2">The things that fuel my soul and shape my destiny</p>
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal reveal-delay-1">
+        <span class="hobby-num">01</span>
+        <span class="hobby-icon">📈</span>
+        <div class="hobby-title">Learning Business</div>
+        <p class="hobby-desc">I devour business books, study entrepreneurial legends, and absorb every strategy that turns visions into empires. Knowledge is my most prized possession.</p>
+      </div>
+      <div class="hobby-card reveal reveal-delay-2">
+        <span class="hobby-num">02</span>
+        <span class="hobby-icon">🎮</span>
+        <div class="hobby-title">Mobile Gaming</div>
+        <p class="hobby-desc">Gaming sharpens my strategic thinking, reflexes, and competitive spirit. Every match teaches me patience, teamwork, and the art of winning under pressure.</p>
+      </div>
+      <div class="hobby-card reveal reveal-delay-3">
+        <span class="hobby-num">03</span>
+        <span class="hobby-icon">🎵</span>
+        <div class="hobby-title">Singing Songs</div>
+        <p class="hobby-desc">Music is the language of my soul. When words fail, melodies speak. Singing gives me peace, expression, and a connection to something deeper than the material world.</p>
+      </div>
+      <div class="hobby-card reveal reveal-delay-4">
+        <span class="hobby-num">04</span>
+        <span class="hobby-icon">💻</span>
+        <div class="hobby-title">Exploring Technology</div>
+        <p class="hobby-desc">Technology is the greatest equalizer of our generation. I explore AI, digital tools, and innovations that will shape tomorrow's empires and redefine human possibility.</p>
+      </div>
+      <div class="hobby-card reveal reveal-delay-5">
+        <span class="hobby-num">05</span>
+        <span class="hobby-icon">🌟</span>
+        <div class="hobby-title">Dreaming Big</div>
+        <p class="hobby-desc">My most powerful hobby is dreaming — painting vivid pictures of a life yet to be lived. Big dreams demand big actions. I dream, then I execute, relentlessly.</p>
+      </div>
+      <div class="hobby-card reveal reveal-delay-1">
+        <span class="hobby-num">06</span>
+        <span class="hobby-icon">🏆</span>
+        <div class="hobby-title">Luxury Lifestyle</div>
+        <p class="hobby-desc">I immerse myself in the world of luxury — the aesthetics, the mindset, the excellence. Studying success shows me not just what to achieve, but what kind of person to become.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== DREAMS ===== -->
+<section id="dreams">
+  <div class="section-wrap">
+    <p class="section-label reveal">My Sacred Goals</p>
+    <h2 class="section-title reveal reveal-delay-1">Dreams That <span class="gold">Drive</span><br>My Soul</h2>
+    <p class="section-sub reveal reveal-delay-2">Each dream is a promise I made to myself — and I keep my promises</p>
+    <div class="dreams-grid">
+      <div class="dream-card reveal reveal-delay-1">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">✈️</span>
+        <div class="dream-title">Travel the World</div>
+        <p class="dream-desc">Every country holds a lesson, every culture a wisdom. I will walk the streets of Paris, Tokyo, Dubai, and New York — collecting experiences that no money alone can buy.</p>
+        <div class="dream-tag">Adventure & Discovery</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-2">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">💼</span>
+        <div class="dream-title">Become a Successful Entrepreneur</div>
+        <p class="dream-desc">To build businesses from nothing, to create value for thousands, to wake up each morning as a creator — this is the destiny I am crafting with every disciplined day.</p>
+        <div class="dream-tag">Empire Building</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-3">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">🏢</span>
+        <div class="dream-title">Build Multiple Businesses</div>
+        <p class="dream-desc">One business is a job. Multiple businesses are a legacy. I envision a portfolio of companies, each a pillar of an empire built on vision, grit, and relentless pursuit of excellence.</p>
+        <div class="dream-tag">Legacy & Growth</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-4">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">🏎️</span>
+        <div class="dream-title">Buy My Dream Lamborghini</div>
+        <p class="dream-desc">The Lamborghini is not just a car — it is a symbol. A proof that the boy from Sirajdikhan turned his wildest dreams into roaring reality. I will drive it one day. That is certain.</p>
+        <div class="dream-tag">Luxury Achievement</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-5">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">🕌</span>
+        <div class="dream-title">Perform Hajj in Makkah</div>
+        <p class="dream-desc">Beyond all wealth and worldly success, standing before the Kaaba in Makkah — humbled, grateful, and at peace — is the single greatest goal of my entire life. Alhamdulillah.</p>
+        <div class="dream-tag">Spiritual Purpose</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-1">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">🌙</span>
+        <div class="dream-title">Visit Beautiful Medina</div>
+        <p class="dream-desc">To breathe the sacred air of Al-Madinah, to visit the resting place of the Prophet ﷺ, to walk those blessed paths — this dream lives in the deepest chamber of my heart.</p>
+        <div class="dream-tag">Blessed Journey</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-2">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">🇧🇩</span>
+        <div class="dream-title">Inspire Bangladesh</div>
+        <p class="dream-desc">I want every young person in Bangladesh to look at my story and believe: it is possible. From our beautiful country, greatness is born. I will be proof of that truth.</p>
+        <div class="dream-tag">National Pride</div>
+      </div>
+      <div class="dream-card reveal reveal-delay-3">
+        <div class="dream-card-bg"></div>
+        <span class="dream-emoji">💰</span>
+        <div class="dream-title">Achieve Financial Freedom</div>
+        <p class="dream-desc">True freedom is waking up without financial fear — for yourself, your family, and the people you love. I am building toward a life where money works for me, not the other way around.</p>
+        <div class="dream-tag">Freedom & Security</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== GOALS ===== -->
+<section id="goals">
+  <div class="section-wrap">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+      <div>
+        <p class="section-label reveal">The Roadmap</p>
+        <h2 class="section-title reveal reveal-delay-1">Future <span class="gold">Goals</span></h2>
+        <div class="gold-rule reveal reveal-delay-2"></div>
+        <p style="font-size:1.05rem; line-height:1.9; color: rgba(245,240,232,0.6);" class="reveal reveal-delay-2">Every empire begins with a blueprint. This is mine — a timeline of ambition, crafted by a 15-year-old who refuses to accept mediocrity as a destiny.</p>
+        <br>
+        <p style="font-size:1.05rem; line-height:1.9; color: rgba(245,240,232,0.6);" class="reveal reveal-delay-3">The journey from Sirajdikhan to the world stage will not be easy. But nothing worth having ever is. Each goal below is a milestone. Each milestone, a step closer to the life I was made for.</p>
+      </div>
+      <div class="goals-timeline">
+        <div class="goal-item">
+          <div class="goal-dot"></div>
+          <div class="goal-year">Now → 2025</div>
+          <div class="goal-title">Master Digital Skills</div>
+          <p class="goal-text">Learn digital marketing, business fundamentals, and online income generation while excelling in Class 10 studies.</p>
+        </div>
+        <div class="goal-item">
+          <div class="goal-dot"></div>
+          <div class="goal-year">2026 → 2027</div>
+          <div class="goal-title">Launch First Venture</div>
+          <p class="goal-text">Build my first online business. Generate my first independent income. Prove to the world — and myself — that it is possible.</p>
+        </div>
+        <div class="goal-item">
+          <div class="goal-dot"></div>
+          <div class="goal-year">2028 → 2030</div>
+          <div class="goal-title">Expand & Multiply</div>
+          <p class="goal-text">Scale the first business. Launch new ventures. Build a team. Begin traveling internationally. Establish brand presence.</p>
+        </div>
+        <div class="goal-item">
+          <div class="goal-dot"></div>
+          <div class="goal-year">2030+</div>
+          <div class="goal-title">Legacy & Freedom</div>
+          <p class="goal-text">Achieve full financial freedom. Complete Hajj. Drive the Lamborghini. Inspire millions across Bangladesh and beyond.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== LUXURY VISION ===== -->
+<section id="vision">
+  <div class="section-wrap">
+    <p class="section-label reveal" style="justify-content:center; text-align:center;">My World</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">Luxury <span class="gold">Lifestyle</span><br>Vision</h2>
+    <p class="section-sub reveal reveal-delay-2" style="text-align:center;">The life I am building, one disciplined day at a time</p>
+    <div class="vision-cards reveal reveal-delay-3">
+      <div class="vision-card">
+        <span class="vision-icon">🏎️</span>
+        <div class="vision-title">Supercar Dreams</div>
+        <p class="vision-text">The Lamborghini Huracán. Matte black with golden accents. The roar of its engine will be the sound of every sacrifice finally paid in full. Not a fantasy — a scheduled destination.</p>
+      </div>
+      <div class="vision-card">
+        <span class="vision-icon">🌍</span>
+        <div class="vision-title">Global Citizen</div>
+        <p class="vision-text">Business meetings in Dubai. Inspirational talks in London. Family time in the most beautiful corners of the world. Borders are just lines on a map — they were never meant to limit dreamers.</p>
+      </div>
+      <div class="vision-card">
+        <span class="vision-icon">🕌</span>
+        <div class="vision-title">Sacred Pilgrimages</div>
+        <p class="vision-text">First class to Makkah. Tears at the Masjid al-Haram. Prayers in Medina under starlit skies. The greatest luxury is not material — it is spiritual proximity to the Divine.</p>
+      </div>
+      <div class="vision-card">
+        <span class="vision-icon">🏗️</span>
+        <div class="vision-title">Empire Architecture</div>
+        <p class="vision-text">Multiple companies. Teams of talented people. Products that solve real problems. A holding company bearing the AL KAFI name, built from nothing in Bangladesh, recognized worldwide.</p>
+      </div>
+      <div class="vision-card">
+        <span class="vision-icon">🏡</span>
+        <div class="vision-title">Dream Home</div>
+        <p class="vision-text">A modern luxury villa — somewhere beautiful, peaceful, and earned. A place where family gathers, where success is celebrated, and where the next generation of dreamers is raised.</p>
+      </div>
+      <div class="vision-card">
+        <span class="vision-icon">🇧🇩</span>
+        <div class="vision-title">Bangladesh First</div>
+        <p class="vision-text">Every achievement reflects on the homeland. I carry Bangladesh with me everywhere — with pride, with love, with the mission to prove that our people are capable of breathtaking greatness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== QUOTE ===== -->
+<section id="quote">
+  <div class="quote-bg"></div>
+  <div class="quote-mark">"</div>
+  <blockquote class="quote-text reveal">
+    The world will not remember you for what you <span class="gold">dreamed</span> —<br>
+    it will remember you for what you <span class="gold">built</span>.<br>
+    And I intend to build <span class="gold">everything</span>.
+  </blockquote>
+  <p class="quote-author reveal reveal-delay-2">AL KAFI, Age 15, Bangladesh</p>
+</section>
+
+<div class="ambient-line"></div>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label reveal">Connect</p>
+        <h2 class="section-title reveal reveal-delay-1">Let's <span class="gold">Connect</span></h2>
+        <div class="gold-rule reveal reveal-delay-2"></div>
+        <p class="contact-intro reveal reveal-delay-2">Whether you are here to collaborate, get inspired, or simply witness the journey of a young dreamer becoming something extraordinary — I welcome you. Reach out. Let us build something remarkable together.</p>
+        <div class="social-links reveal reveal-delay-3">
+          <a href="#" class="social-link">
+            <span class="social-icon">📘</span>
+            <span class="social-name">Facebook</span>
+            <span class="social-handle">AL KAFI</span>
+          </a>
+          <a href="#" class="social-link">
+            <span class="social-icon">📸</span>
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">@alkafi</span>
+          </a>
+          <a href="#" class="social-link">
+            <span class="social-icon">▶️</span>
+            <span class="social-name">YouTube</span>
+            <span class="social-handle">AL KAFI</span>
+          </a>
+          <a href="#" class="social-link">
+            <span class="social-icon">✉️</span>
+            <span class="social-name">Email</span>
+            <span class="social-handle">Connect</span>
+          </a>
+        </div>
+        <p style="margin-top:2rem; font-family: var(--font-ui); font-size:0.7rem; letter-spacing:0.25em; color: rgba(245,240,232,0.25);" class="reveal reveal-delay-4">SIRAJDIKHAN · MUNSHIGANJ · DHAKA · BANGLADESH</p>
+      </div>
+      <div class="contact-form-card reveal reveal-delay-3">
+        <div class="contact-form-title">Send a Message</div>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Write your message here..."></textarea>
+        </div>
+        <button class="form-btn" onclick="sendMsg()">Send Message ✦</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">AL KAFI</div>
+  <p class="footer-tagline">A Young Dreamer Building A Luxury Future From Bangladesh</p>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#dreams">Dreams</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2024 <span>AL KAFI</span> · All Rights Reserved · Made with ❤️ in <span>Bangladesh 🇧🇩</span></p>
+</footer>
+
+<script>
+// ===== LOADER =====
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+    initParticles();
+    startTyping();
+    initReveal();
+    initGoalReveal();
+  }, 2800);
+});
+
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+function animRing() {
+  const rx = parseFloat(ring.style.left) || 0;
+  const ry = parseFloat(ring.style.top) || 0;
+  ring.style.left = (rx + (mx - rx) * 0.12) + 'px';
+  ring.style.top = (ry + (my - ry) * 0.12) + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.hobby-card,.dream-card,.vision-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px'; cursor.style.height = '20px';
+    ring.style.width = '50px'; ring.style.height = '50px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px'; cursor.style.height = '12px';
+    ring.style.width = '36px'; ring.style.height = '36px';
+  });
+});
+
+// ===== NAV SCROLL =====
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ===== MOBILE MENU =====
+function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ===== TYPING EFFECT =====
+const phrases = [
+  'Entrepreneur In The Making',
+  'Dreamer · Builder · Believer',
+  'Future Millionaire · Bangladesh',
+  'Class 10 Student · World Changer',
+  'Powered By Faith & Ambition',
+];
+let pIdx = 0, cIdx = 0, isDeleting = false;
+function startTyping() {
+  const el = document.getElementById('typingText');
+  if (!el) return;
+  const current = phrases[pIdx];
+  if (!isDeleting) {
+    el.textContent = current.substring(0, cIdx + 1);
+    cIdx++;
+    if (cIdx === current.length) { isDeleting = true; setTimeout(startTyping, 2000); return; }
+  } else {
+    el.textContent = current.substring(0, cIdx - 1);
+    cIdx--;
+    if (cIdx === 0) { isDeleting = false; pIdx = (pIdx + 1) % phrases.length; }
+  }
+  setTimeout(startTyping, isDeleting ? 50 : 90);
+}
+
+// ===== PARTICLES =====
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+  const pts = [];
+  const count = Math.min(80, Math.floor(W * H / 12000));
+  for (let i = 0; i < count; i++) {
+    pts.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.3,
+      a: Math.random()
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,168,76,${p.a * 0.7})`;
+      ctx.fill();
+    });
+    // draw connections
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x;
+        const dy = pts[i].y - pts[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(201,168,76,${(1 - dist / 120) * 0.12})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ===== SCROLL REVEAL =====
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+}
+
+// ===== GOAL REVEAL =====
+function initGoalReveal() {
+  const goals = document.querySelectorAll('.goal-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 150);
+      }
+    });
+  }, { threshold: 0.2 });
+  goals.forEach(g => obs.observe(g));
+}
+
+// ===== PARALLAX =====
+let ticking = false;
+document.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const sy = window.scrollY;
+      const heroBg = document.querySelector('.hero-bg-glow');
+      if (heroBg) heroBg.style.transform = `translateY(${sy * 0.3}px)`;
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// ===== MUSIC =====
+let audioCtx = null, musicNodes = [], isPlaying = false;
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    createAmbient();
+  }
+  if (isPlaying) {
+    musicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+    musicNodes = [];
+    isPlaying = false;
+    btn.textContent = '🎵';
+    btn.classList.remove('playing');
+  } else {
+    createAmbient();
+    isPlaying = true;
+    btn.textContent = '🔊';
+    btn.classList.add('playing');
+  }
+}
+function createAmbient() {
+  if (!audioCtx) return;
+  const notes = [130.81, 164.81, 196.00, 220.00, 261.63, 196.00, 220.00, 164.81];
+  notes.forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.025, audioCtx.currentTime + 1 + i * 0.8);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime + i * 0.8);
+    musicNodes.push(osc);
+  });
+}
+
+// ===== FORM =====
+function sendMsg() {
+  const btn = document.querySelector('.form-btn');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = 'linear-gradient(135deg, #2a7a2a, #4caf50)';
+  setTimeout(() => {
+    btn.textContent = 'Send Message ✦';
+    btn.style.background = '';
+  }, 3000);
+}
+
+// ===== SMOOTH ANCHOR SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
